@@ -1150,7 +1150,7 @@ struct CudaGraphFuser {
   }
 
   void refreshAliasDb() {
-    aliasDb_ = torch::make_unique<AliasDb>(graph_);
+    aliasDb_ = std::make_unique<AliasDb>(graph_);
   }
 
   void removeNoopBinaryOps(Block* block) {
