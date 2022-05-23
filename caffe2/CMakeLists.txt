@@ -890,11 +890,13 @@ elseif(USE_CUDA)
     target_link_libraries(torch_cuda PRIVATE torch_cuda_w_sort_by_key)
   elseif(BUILD_SPLIT_CUDA)
     add_library(torch_cuda_cpp ${Caffe2_GPU_SRCS} ${Caffe2_GPU_SRCS_W_SORT_BY_KEY})
+    set_property(TARGET torch_cuda_cpp PROPERTY CUDA_SEPARABLE_COMPILATION ON)
     add_library(torch_cuda_cu ${Caffe2_GPU_CU_SRCS} ${Caffe2_GPU_CU_SRCS_W_SORT_BY_KEY})
   else()
     add_library(torch_cuda
         ${Caffe2_GPU_SRCS} ${Caffe2_GPU_SRCS_W_SORT_BY_KEY}
         ${Caffe2_GPU_CU_SRCS} ${Caffe2_GPU_CU_SRCS_W_SORT_BY_KEY})
+    set_property(TARGET torch_cuda PROPERTY CUDA_SEPARABLE_COMPILATION ON)
   endif()
   set(CUDA_LINK_LIBRARIES_KEYWORD)
   if(BUILD_SPLIT_CUDA)
