@@ -243,7 +243,7 @@ class intrusive_ptr final {
           value,
       "NullType::singleton() must return a element_type* pointer");
 
-  TTarget* target_;
+  TTarget* target_{NullType::singleton()};
 
   template <typename T>
   friend struct ExclusivelyOwnedTensorTraits;
@@ -289,6 +289,7 @@ class intrusive_ptr final {
       }
       if (should_delete) {
         delete target_;
+        target_ = NullType::singleton();
       }
     }
   }
@@ -680,7 +681,7 @@ class weak_intrusive_ptr final {
           value,
       "NullType::singleton() must return a element_type* pointer");
 
-  TTarget* target_;
+  TTarget* target_{NullType::singleton()};
 
   template <class TTarget2, class NullType2>
   friend class weak_intrusive_ptr;
