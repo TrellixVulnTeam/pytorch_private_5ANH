@@ -1522,10 +1522,8 @@ endif()
 
 # ---[ CUDA library.
 if(BUILD_SPLIT_CUDA)
-  target_link_libraries(torch_cuda_cu INTERFACE torch::cudart)
-  target_link_libraries(torch_cuda_cpp INTERFACE torch::cudart)
-  target_link_libraries(torch_cuda_cu PUBLIC c10_cuda torch::nvtoolsext)
-  target_link_libraries(torch_cuda_cpp PUBLIC c10_cuda torch::nvtoolsext)
+  target_link_libraries(torch_cuda_cu PUBLIC c10_cuda)
+  target_link_libraries(torch_cuda_cpp PUBLIC c10_cuda)
 
   target_include_directories(
       torch_cuda_cu INTERFACE $<INSTALL_INTERFACE:include>)
@@ -1551,8 +1549,7 @@ if(BUILD_SPLIT_CUDA)
   target_link_libraries(torch_cuda_cpp PUBLIC torch_cpu_library ${Caffe2_PUBLIC_CUDA_DEPENDENCY_LIBS})
   target_link_libraries(torch_cuda_cu PUBLIC torch_cpu_library ${Caffe2_PUBLIC_CUDA_DEPENDENCY_LIBS})
 elseif(USE_CUDA)
-  target_link_libraries(torch_cuda INTERFACE torch::cudart)
-  target_link_libraries(torch_cuda PUBLIC c10_cuda torch::nvtoolsext)
+  target_link_libraries(torch_cuda PUBLIC c10_cuda)
 
   target_include_directories(
       torch_cuda INTERFACE $<INSTALL_INTERFACE:include>)
@@ -1639,7 +1636,6 @@ if(BUILD_SHARED_LIBS)
   # not find them, because they're usually in non-standard locations)
   if(USE_CUDA)
     target_link_libraries(torch_global_deps ${Caffe2_PUBLIC_CUDA_DEPENDENCY_LIBS})
-    target_link_libraries(torch_global_deps torch::cudart torch::nvtoolsext)
   endif()
   if(USE_TBB)
     target_link_libraries(torch_global_deps TBB::tbb)
